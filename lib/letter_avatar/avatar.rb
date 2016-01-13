@@ -10,30 +10,27 @@ module LetterAvatar
     # we will need to change this
     FULLSIZE = 240
 
-    FILL_COLOR = 'rgba(255, 255, 255, 0.65)'.freeze
+    FILL_COLOR = 'rgba(255, 255, 255, 1)'.freeze
 
     class << self
 
       class Identity
         attr_accessor :color, :letter
 
-        def self.from_username(username)
+        def self.from_username(username, length)
           identity = new
           identity.color = LetterAvatar::Colors.for(username)
-          identity.letter = username[0].upcase
-
+          identity.letter = username[0..length.to_i].upcase
           identity
         end
       end
-
 
       def cache_path
         "#{LetterAvatar.cache_base_path || 'public/system'}/letter_avatars/#{VERSION}"
       end
 
       def generate(username, size, opts = nil)
-        identity = Identity.from_username(username)
-
+        identity = Identity.from_username(username, opts[:length])
         cache = true
         cache = false if opts && opts[:cache] == false
 
@@ -69,7 +66,7 @@ module LetterAvatar
         instructions = %W{
           -size 240x240
           xc:#{to_rgb(color)}
-          -pointsize 140
+          -pointsize 120
           -font Roboto-Medium
           -weight 500
           -fill '#{FILL_COLOR}'

@@ -13,49 +13,51 @@ module LetterAvatar
 
     def self.with_google(username)
       char = username[0].upcase
-
-      if /[A-Z]/.match(char)
-        # 65 is 'A' ord
-        idx = char.ord - 65
-        google[idx]
-      elsif /[\d]/.match(char)
-        google[char.to_i]
-      else
-        google[Digest::MD5.hexdigest(username)[0...15].to_i(16) % google.length]
-      end
+      generator = ColorGenerator.new saturation: 0.4, value: 1.0
+      generator.create_rgb
+      # if /[a-z-a-я]/.match(char)
+      #   # 65 is 'A' ord
+      #   idx = char.ord - 65
+      #   google[idx]
+      # elsif /[\d]/.match(char)
+      #   google[char.to_i]
+      # else
+      #   google[Digest::MD5.hexdigest(username)[0...15].to_i(16) % google.length]
+      # end
     end
 
 
     # Colors form Google Inbox
     # https://inbox.google.com
     def self.google
+      generator = ColorGenerator.new saturation: 0.3, value: 1.0
       [
-        [226, 95, 81], # A
-        [242, 96, 145], # B
-        [187, 101, 202], # C
-        [149, 114, 207], # D
-        [120, 132, 205], # E
-        [91, 149, 249], # F
-        [72, 194, 249], # G
-        [69, 208, 226], # H
-        [72, 182, 172], # I
-        [82, 188, 137], # J
-        [155, 206, 95], # K
-        [212, 227, 74], # L
-        [254, 218, 16], # M
-        [247, 192, 0], # N
-        [255, 168, 0], # O
-        [255, 138, 96], # P
-        [194, 194, 194], # Q
-        [143, 164, 175], # R
-        [162, 136, 126], # S
-        [163, 163, 163], # T
-        [175, 181, 226], # U
-        [179, 155, 221], # V
-        [194, 194, 194], # W
-        [124, 222, 235], # X
-        [188, 170, 164], # Y
-        [173, 214, 125] # Z
+        generator.create_rgb, # A
+        generator.create_rgb, # B
+        generator.create_rgb, # C
+        generator.create_rgb, # D
+        generator.create_rgb, # E
+        generator.create_rgb, # F
+        generator.create_rgb, # G
+        generator.create_rgb, # H
+        generator.create_rgb, # I
+        generator.create_rgb, # J
+        generator.create_rgb, # K
+        generator.create_rgb, # L
+        generator.create_rgb, # M
+        generator.create_rgb, # N
+        generator.create_rgb, # O
+        generator.create_rgb, # P
+        generator.create_rgb, # Q
+        generator.create_rgb, # R
+        generator.create_rgb, # S
+        generator.create_rgb, # T
+        generator.create_rgb, # U
+        generator.create_rgb, # V
+        generator.create_rgb, # W
+        generator.create_rgb, # X
+        generator.create_rgb, # Y
+        generator.create_rgb # Z
       ]
     end
 
